@@ -1,4 +1,5 @@
-#Set 1 Challenege 3 Single-byte XOR cipher
+# Set 1 Challenege 3 Single-byte XOR cipher
+
 
 def find_single_byte_xor(str):
     byte_buf = bytearray.fromhex(str)
@@ -7,13 +8,13 @@ def find_single_byte_xor(str):
 
     for char in byte_buf:
         if char not in histogram:
-            histogram[char] = 1;
+            histogram[char] = 1
         else:
-            histogram[char] += 1;
+            histogram[char] += 1
 
-    #The most frequent occuring char is likely 'E'
-    #If we xor the byte that is 'E' with 'E', we should
-    #get the xor byte?
+    # The most frequent occuring char is likely 'E'
+    # If we xor the byte that is 'E' with 'E', we should
+    # get the xor byte?
 
     highest_count = 0
     most_frequent = ''
@@ -22,11 +23,11 @@ def find_single_byte_xor(str):
             highest_count = histogram.get(key)
             most_frequent = key
 
-    #Find the most_frequent in the byte_buf
+    # Find the most_frequent in the byte_buf
 
-    #To do this automatically, we should have a list of most frequently used
-    #characters, if you encounter one, add it to to the histogram
-    #The character with the highest sum, is the likely candidate
+    # To do this automatically, we should have a list of most frequently used
+    # characters, if you encounter one, add it to to the histogram
+    # The character with the highest sum, is the likely candidate
 
     frequent_chars = (
         'E', 'T', 'A', 'O', 'I', 'N',
@@ -38,25 +39,25 @@ def find_single_byte_xor(str):
     for freq in frequent_chars:
 
         frequent_histogram = {
-            'E' : 0,
-            'T' : 0,
-            'A' : 0,
-            'O' : 0,
-            'I' : 0,
-            'N' : 0,
-            ' ' : 0,
-            'S' : 0,
-            'H' : 0,
-            'R' : 0,
-            'D' : 0,
-            'L' : 0,
-            'U' : 0,
+            'E': 0,
+            'T': 0,
+            'A': 0,
+            'O': 0,
+            'I': 0,
+            'N': 0,
+            ' ': 0,
+            'S': 0,
+            'H': 0,
+            'R': 0,
+            'D': 0,
+            'L': 0,
+            'U': 0,
         }
 
         temp_buf = bytearray()
         temp_buf[:] = byte_buf
 
-        xor_byte = temp_buf[temp_buf.find(most_frequent)] ^ ord(freq)
+        xor_byte = temp_buf[temp_buf.decode().find(chr(most_frequent))] ^ ord(freq)
 
         for i in range(len(temp_buf)):
             temp_buf[i] = temp_buf[i] ^ xor_byte
@@ -67,11 +68,9 @@ def find_single_byte_xor(str):
             if char.upper() in frequent_histogram:
                 frequent_histogram[char.upper()] += 1
 
-
         if highest_frequency_count < sum(frequent_histogram.values()):
             highest_frequency_count = sum(frequent_histogram.values())
             highest_frequency_char = freq
-
 
     return highest_frequency_char.encode()
 
