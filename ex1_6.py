@@ -9,8 +9,7 @@ KEYSIZE_MAX = 40
 ciphertext_bytes = ""
 
 with open('ex1_6.base64', 'r') as file:
-    ciphertext_bytes = file.read()
-    ciphertext_bytes = base64.b64decode(ciphertext_bytes)
+    ciphertext_bytes = bytearray(base64.b64decode(file.read()))
 
 
 def str_to_bin(text):
@@ -29,7 +28,5 @@ def get_hamming_distance(str1, str2):
 
     return hamming_distance
 
-# def
 
-# base64 decode entire string
-print str_to_bin(ciphertext_bytes)
+print get_hamming_distance(ciphertext_bytes[0:2], ciphertext_bytes[2:4])
